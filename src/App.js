@@ -1,24 +1,33 @@
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter, Routes, Route, NavLink, Navigate } from 'react-router-dom';
+import EmployeesPage from './pages/EmployeesPage';
+import DashboardPage from './pages/DashboardPage';
 import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <BrowserRouter>
+        <div className="app">
+          <nav className="navbar">
+            <h1 className="logo">Salary Management</h1>
+            <div className="nav-links">
+              <NavLink to="/dashboard" className={({ isActive }) => isActive ? 'active' : ''}>
+                Dashboard
+              </NavLink>
+              <NavLink to="/employees" className={({ isActive }) => isActive ? 'active' : ''}>
+                Employees
+              </NavLink>
+            </div>
+          </nav>
+          <main className="content">
+            <Routes>
+              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route path="/employees" element={<EmployeesPage />} />
+              <Route path="/" element={<Navigate to="/dashboard" />} />
+            </Routes>
+          </main>
+        </div>
+      </BrowserRouter>
   );
 }
 
